@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int n, k, C[45], ok;
+
+void ktao(){
+    // Khởi tạo tổ hợp đầu tiên: 1 2 ... k
+    for(int i=1; i<=k; i++) C[i] = i;
+}
+
+void in(){
+    for(int i=1; i<=k; i++) cout << C[i] << " ";
+    cout << endl;
+}
+
+void sinh(){
+    int i = k;
+    // Tìm phần tử chưa đạt giá trị max tại vị trí i (max = n - k + i)
+    while(i >= 1 && C[i] == n - k + i){
+        i--;
+    }
+    
+    if(i == 0){
+        ok = 0; // Cấu hình cuối cùng
+    } else {
+        C[i]++;
+        // Đặt lại các phần tử phía sau
+        for(int j=i+1; j<=k; j++){
+            C[j] = C[j-1] + 1;
+        }
+    }
+}
+
+int main(){
+    cin >> n >> k;
+    ok = 1;
+    ktao();
+    while(ok){
+        in();
+        sinh();
+    }
+    return 0;
+}

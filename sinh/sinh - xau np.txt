@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int n, B[25], ok;
+
+void ktao(){
+    // Khởi tạo cấu hình đầu tiên: 00...0
+    for(int i=1; i<=n; i++) B[i] = 0;
+}
+
+void in(){
+    for(int i=1; i<=n; i++) cout << B[i] << " ";
+    cout << endl;
+}
+
+void sinh(){
+    int i = n;
+    // Tìm phần tử 0 đầu tiên từ phải sang trái
+    while(i >= 1 && B[i] == 1){
+        B[i] = 0;
+        i--;
+    }
+    if(i == 0){
+        ok = 0; // Đã là cấu hình cuối cùng (toàn 1)
+    } else {
+        B[i] = 1; // Bật bit 0 thành 1
+    }
+}
+
+int main(){
+    cin >> n;
+    ok = 1;
+    ktao();
+    while(ok){
+        in();
+        sinh();
+    }
+    return 0;
+}

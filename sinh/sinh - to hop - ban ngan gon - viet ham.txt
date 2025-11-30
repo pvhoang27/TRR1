@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, k, C[45], ok;
+
+// Khởi tạo tổ hợp đầu tiên: 1 2 ... k
+void ktao() {
+    for(int i = 1; i <= k; i++) C[i] = i;
+}
+
+// In ra tổ hợp hiện tại
+void in() {
+    for(int i = 1; i <= k; i++) cout << C[i] << " ";
+    cout << endl;
+}
+
+// Sinh tổ hợp kế tiếp (non-recursive)
+void sinh() {
+    int i = k;
+    while(i >= 1 && C[i] == n - k + i) i--; // tìm vị trí chưa max
+
+    if(i == 0) ok = 0; // đã sinh hết
+    else {
+        C[i]++; // tăng phần tử i
+        for(int j = i+1; j <= k; j++) // reset các phần tử sau
+            C[j] = C[j-1] + 1;
+    }
+}
+
+int main() {
+    cin >> n >> k;
+    ok = 1;
+    ktao();
+    while(ok) {
+        in();
+        sinh(); // gọi hàm sinh
+    }
+    return 0;
+}

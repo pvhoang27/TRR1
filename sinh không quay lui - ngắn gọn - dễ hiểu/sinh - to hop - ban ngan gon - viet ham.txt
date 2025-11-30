@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, k, C[45], ok;
+
+void in() {
+    for(int i = 1; i <= k; i++) cout << C[i] << " ";
+    cout << endl;
+}
+
+void sinh() {
+    // khởi tạo tổ hợp đầu tiên bên trong hàm
+    for(int i = 1; i <= k; i++) C[i] = i;
+    ok = 1;
+
+    while(ok) {
+        in();
+
+        int i = k;
+        while(i >= 1 && C[i] == n - k + i) i--; // tìm phần tử chưa max
+        if(i == 0) ok = 0;
+        else {
+            C[i]++;
+            for(int j = i+1; j <= k; j++) C[j] = C[j-1] + 1;
+        }
+    }
+}
+
+int main() {
+    cin >> n >> k;
+    sinh();
+}

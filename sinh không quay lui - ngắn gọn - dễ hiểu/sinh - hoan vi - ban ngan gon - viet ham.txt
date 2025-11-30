@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, A[15], B[15]; // A: hoán vị hiện tại, B: đánh dấu đã dùng
+
+void in() {
+    for(int i = 1; i <= n; i++) cout << A[i] << " ";
+    cout << endl;
+}
+
+// Hàm sinh tất cả hoán vị non-recursive
+void sinh() {
+    // Khởi tạo hoán vị đầu tiên: 1 2 3 ... n
+    for(int i = 1; i <= n; i++) {
+        A[i] = i;
+    }
+
+    while(true) {
+        in(); // in hoán vị hiện tại
+
+        // Tìm vị trí i từ phải sang trái để tăng
+        int i = n - 1;
+        while(i > 0 && A[i] > A[i+1]) i--;
+
+        if(i == 0) break; // đã sinh hết hoán vị
+
+        // Tìm phần tử nhỏ nhất bên phải A[i] mà lớn hơn A[i]
+        int j = n;
+        while(A[j] < A[i]) j--;
+
+        swap(A[i], A[j]);
+
+        // Đảo ngược đoạn A[i+1..n] để tạo hoán vị tiếp theo
+        reverse(A+i+1, A+n+1);
+    }
+}
+
+int main() {
+    cin >> n;
+    sinh(); // gọi hàm sinh hoán vị
+}
